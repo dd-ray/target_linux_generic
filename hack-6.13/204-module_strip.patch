@@ -161,13 +161,17 @@ Signed-off-by: Felix Fietkau <nbd@nbd.name>
  }
  
  static void write_buf(struct buffer *b, const char *fname)
-@@ -1973,7 +1979,9 @@ static void write_mod_c_file(struct modu
- 	add_exported_symbols(&buf, mod);
+@@ -1963,12 +1969,14 @@
  	add_versions(&buf, mod);
  	add_depends(&buf, mod);
+
 +#ifndef CONFIG_MODULE_STRIPPED
- 	add_moddevtable(&buf, mod);
-+#endif
+ 	buf_printf(&buf, "\n");
+ 	list_for_each_entry_safe(alias, next, &mod->aliases, node) {
+ 		buf_printf(&buf, "MODULE_ALIAS(\"%s\");\n", alias->str);
+ 		list_del(&alias->node);
+ 		free(alias);
+ 	}
+++#endif
+
  	add_srcversion(&buf, mod);
- 
- 	ret = snprintf(fname, sizeof(fname), "%s.mod.c", mod->name);

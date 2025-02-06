@@ -124,15 +124,6 @@ Signed-off-by: John Crispin <blogic@openwrt.org>
  {
  	const char *ioname = NULL;
  	struct gpio_device *gdev;
-@@ -629,6 +629,8 @@ int gpiod_export(struct gpio_desc *desc,
- 	offset = gpio_chip_hwgpio(desc);
- 	if (guard.gc->names && guard.gc->names[offset])
- 		ioname = guard.gc->names[offset];
-+	if (name)
-+		ioname = name;
- 
- 	dev = device_create_with_groups(&gpio_class, &gdev->dev,
- 					MKDEV(0, 0), data, gpio_groups,
 @@ -650,6 +652,12 @@ err_unlock:
  	gpiod_dbg(desc, "%s: status %d\n", __func__, status);
  	return status;
