@@ -164,7 +164,7 @@ Signed-off-by: Felix Fietkau <nbd@nbd.name>
 @@ -1963,12 +1969,14 @@
  	add_versions(&buf, mod);
  	add_depends(&buf, mod);
-
+ 
 +#ifndef CONFIG_MODULE_STRIPPED
  	buf_printf(&buf, "\n");
  	list_for_each_entry_safe(alias, next, &mod->aliases, node) {
@@ -172,6 +172,6 @@ Signed-off-by: Felix Fietkau <nbd@nbd.name>
  		list_del(&alias->node);
  		free(alias);
  	}
-++#endif
-
++#endif
+ 
  	add_srcversion(&buf, mod);

@@ -136,11 +136,11 @@ Signed-off-by: John Crispin <john@phrozen.org>
  	def_bool y
 @@ -12,7 +12,7 @@
  	depends on WEXT_CORE
-
+ 
  config WEXT_PRIV
 -	bool
 +	bool "WEXT_PRIV"
-
+ 
  config CFG80211
  	tristate "cfg80211 - wireless configuration API"
 --- a/sound/core/Kconfig
