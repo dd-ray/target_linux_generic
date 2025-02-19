@@ -99,6 +99,7 @@ Signed-off-by: Bernhard Frauendienst <kernel@nospam.obeliks.de>
 +#include <linux/mtd/concat.h>
 +#include <linux/mtd/mtd.h>
 +#include <linux/mtd/partitions.h>
++#include <linux/platform_device.h>
 +#include <linux/of.h>
 +#include <linux/of_platform.h>
 +#include <linux/slab.h>
@@ -115,14 +116,14 @@ Signed-off-by: Bernhard Frauendienst <kernel@nospam.obeliks.de>
 +	struct mtd_info	**devices;
 +};
 +
-+static int virt_concat_remove(struct platform_device *pdev)
++static void virt_concat_remove(struct platform_device *pdev)
 +{
 +	struct of_virt_concat *info;
 +	int i;
 +
 +	info = platform_get_drvdata(pdev);
 +	if (!info)
-+		return 0;
++		return;
 +
 +	// unset data for when this is called after a probe error
 +	platform_set_drvdata(pdev, NULL);
@@ -137,7 +138,6 @@ Signed-off-by: Bernhard Frauendienst <kernel@nospam.obeliks.de>
 +			put_mtd_device(info->devices[i]);
 +	}
 +
-+	return 0;
 +}
 +
 +static int virt_concat_probe(struct platform_device *pdev)
